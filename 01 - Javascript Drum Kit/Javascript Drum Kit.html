@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>JS Drum Kit</title>
+		<link rel="stylesheet" href="JS Drum Kit style.css">
+	</head>
+
+	<body>
+
+	<!--divs of keyboard keys-->
+		<div class="keys">
+		<!--each key-->
+			<div data-key="65" class="key"><!--key A/Clap-->
+				<kbd>A</kbd>
+				<span class="sound">clap</span>
+			</div><!--end of A/Clap-->
+
+			<div data-key="83" class="key"><!--key S/Hihat-->
+				<kbd>S</kbd>
+				<span class="sound">hihat</span>
+			</div><!--end of S/Hihat-->	
+
+			<div data-key="68" class="key"><!--key D/Kick-->
+				<kbd>D</kbd>
+				<span class="sound">kick</span>
+			</div><!--end of D/Kick-->	
+
+			<div data-key="70" class="key"><!--key F/Openhat-->
+				<kbd>F</kbd>
+				<span class="sound">Openhat</span>
+			</div><!--end of F/Openhat-->
+
+			<div data-key="71" class="key"><!--key G/Boom-->
+				<kbd>G</kbd>
+				<span class="sound">boom</span>
+			</div><!--end of G/Boom-->
+
+			<div data-key="72" class="key"><!--key H/Ride-->
+				<kbd>H</kbd>
+				<span class="sound">ride</span>
+			</div><!--end of H/Ride-->
+
+			<div data-key="74" class="key"><!--key J/Snare-->
+				<kbd>J</kbd>
+				<span class="sound">snare</span>
+			</div><!--end of J/Snare-->
+
+			<div data-key="75" class="key"><!--key K/Tom-->
+				<kbd>K</kbd>
+				<span class="sound">tom</span>
+			</div><!--end of K/Tom-->
+
+			<div data-key="76" class="key"><!--key L/Tink-->
+				<kbd>L</kbd>
+				<span class="sound">tink</span>
+			</div><!--end of L/Tink-->
+		</div><!--end div of keyboard keys-->
+
+		<!--audi files for each key-->
+		<audio data-key="65" src="01 - JavaScript Drum Kit/sounds/clap.wav"></audio>
+		<audio data-key="83" src="01 - JavaScript Drum Kit/sounds/hihat.wav"></audio>
+	  	<audio data-key="68" src="01 - JavaScript Drum Kit/sounds/kick.wav"></audio>
+	  	<audio data-key="70" src="01 - JavaScript Drum Kit/sounds/openhat.wav"></audio>
+	  	<audio data-key="71" src="01 - JavaScript Drum Kit/sounds/boom.wav"></audio>
+	  	<audio data-key="72" src="01 - JavaScript Drum Kit/sounds/ride.wav"></audio>
+	  	<audio data-key="74" src="01 - JavaScript Drum Kit/sounds/snare.wav"></audio>
+	  	<audio data-key="75" src="01 - JavaScript Drum Kit/sounds/tom.wav"></audio>
+	  	<audio data-key="76" src="01 - JavaScript Drum Kit/sounds/tink.wav"></audio>
+
+	  	<script>
+	  		
+	  		function playSound (e) {
+	          const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+	          const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+	          if(!audio) return;//stop the function from running all together
+	          audio.currentTime = 0;//rewind to the start 
+	          audio.play();
+	          key.classList.add('playing');
+	        }
+
+		  	 function removeTransition (e) {
+	          if(e.propertyName !== 'transform') return;//skip it if it's not a transform
+	          this.classList.remove('playing');
+	        }
+
+      		const keys = document.querySelectorAll('.key');
+	        keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+	        window.addEventListener('keydown', playSound);
+
+
+
+	  	</script>
+	</body>
+</html>
